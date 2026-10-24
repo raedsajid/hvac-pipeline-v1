@@ -1,0 +1,17 @@
+For Vercel + existing Turso/R2, start with DEPLOY-VERCEL.md.
+Use a test database and bucket for the preview. Do not replace production yet.
+
+BuildERP now runs as a Python application.
+
+1. Install Python 3.12.
+2. Follow README.md to create a virtual environment and install requirements.txt.
+3. Copy .env.example to .env and set SETTINGS_SECRET.
+4. Run: python run.py
+5. Open: http://127.0.0.1:8000
+
+The first account becomes owner. Add your Gemini key in Settings.
+Table detection now runs inside Python with OpenCV.
+Open a drawing > Table & crop review > Detect tables > Accept selected tables.
+Check saved regions, then Extract schedule rows. See TABLE-DETECTION.md.
+No Next.js or OpenCV sidecar is needed.
+For existing projects/data, read MIGRATION.md before switching deployments.

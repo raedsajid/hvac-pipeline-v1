@@ -1,0 +1,597 @@
+[
+  {
+    "tag": "AC/ACCU",
+    "spec_number": "15783",
+    "description": "Split AC Unit",
+    "descriptions": [
+      "Split AC Unit",
+      "Split Packaged AC/Heat Pump Unit"
+    ],
+    "projects": [
+      "PS169Q",
+      "PS48M"
+    ],
+    "support": 8
+  },
+  {
+    "tag": "AHU",
+    "spec_number": "15858",
+    "description": "Single Zone VAV Air Handling Unit",
+    "descriptions": [
+      "Single Zone VAV Air Handling Unit"
+    ],
+    "projects": [
+      "PS169Q"
+    ],
+    "support": 2
+  },
+  {
+    "tag": "AHU/ACCU",
+    "spec_number": "15856",
+    "description": "Air Handling Unit with Heat Recovery Condensing Unit (22TR)",
+    "descriptions": [
+      "Air Handling Unit with Heat Recovery Condensing Unit (22TR)",
+      "Air Handling Unit with Heat Recovery Condensing Unit (22TR/14TR)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 13
+  },
+  {
+    "tag": "AHU/ACCU",
+    "spec_number": "15858",
+    "description": "Air Handling Unit with Heat Recovery Condensing Unit (12TR)",
+    "descriptions": [
+      "Air Handling Unit with Heat Recovery Condensing Unit (12TR)",
+      "Air Handling Unit with Heat Recovery Condensing Unit (14TR)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 8
+  },
+  {
+    "tag": "AHU/ACCU",
+    "spec_number": "15938",
+    "description": "Air Handling Unit with Heat Recovery Condensing Unit (14TR)",
+    "descriptions": [
+      "Air Handling Unit with Heat Recovery Condensing Unit (14TR)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 2
+  },
+  {
+    "tag": "AMCA",
+    "spec_number": "15857",
+    "description": "Shifted to GC Scope",
+    "descriptions": [
+      "Shifted to GC Scope"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 1
+  },
+  {
+    "tag": "AS",
+    "spec_number": "15515",
+    "description": "Air Separator",
+    "descriptions": [
+      "Air Separator",
+      "Air Separator for Dual Temp Glycol Loop",
+      "Air Separator for Hot Water Loop"
+    ],
+    "projects": [
+      "PS169Q",
+      "PS48M"
+    ],
+    "support": 3
+  },
+  {
+    "tag": "BF",
+    "spec_number": "15570",
+    "description": "Floor Mounted Buffer Tank",
+    "descriptions": [
+      "Floor Mounted Buffer Tank"
+    ],
+    "projects": [
+      "PS169Q"
+    ],
+    "support": 1
+  },
+  {
+    "tag": "CAV",
+    "spec_number": "15930",
+    "description": "Constant Air Volume Box (300cfm/6\" Neck)",
+    "descriptions": [
+      "Constant Air Volume Box (300cfm/6\" Neck)",
+      "Constant Air Volume Box (200cfm/6\" Neck)",
+      "Constant Air Volume Box (600cfm/8\" Neck)",
+      "Constant Air Volume Box (350cfm/8\" Neck)",
+      "Constant Air Volume Box (400cfm/8\" Neck)",
+      "Constant Air Volume Box (550cfm/8\" Neck)",
+      "Constant Air Volume Box (950cfm/14\" Neck)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 13
+  },
+  {
+    "tag": "CF",
+    "spec_number": "15517",
+    "description": "Low Temp. Hot Water Makeup & Chem. Treatment (50 Gallons)",
+    "descriptions": [
+      "Low Temp. Hot Water Makeup & Chem. Treatment (50 Gallons)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 1
+  },
+  {
+    "tag": "CH",
+    "spec_number": "15661",
+    "description": "Modular Air Source Chiller Heater for Dual Temp Loop (112TR) with equipment rails",
+    "descriptions": [
+      "Modular Air Source Chiller Heater for Dual Temp Loop (112TR) with equipment rails",
+      "Air Source Heat Pump Chiller-Heater"
+    ],
+    "projects": [
+      "PS169Q",
+      "PS48M"
+    ],
+    "support": 3
+  },
+  {
+    "tag": "CH/ACC",
+    "spec_number": "15650",
+    "description": "SPLIT AIR COOLED CHILLER (107TR/256GPM)",
+    "descriptions": [
+      "SPLIT AIR COOLED CHILLER (107TR/256GPM)"
+    ],
+    "projects": [
+      "IS145Q"
+    ],
+    "support": 6
+  },
+  {
+    "tag": "CONV",
+    "spec_number": "15835",
+    "description": "Wall Mounted Electric Convector",
+    "descriptions": [
+      "Wall Mounted Electric Convector"
+    ],
+    "projects": [
+      "PS169Q"
+    ],
+    "support": 1
+  },
+  {
+    "tag": "CP",
+    "spec_number": "15783",
+    "description": "Condensate Drain Pump",
+    "descriptions": [
+      "Condensate Drain Pump"
+    ],
+    "projects": [
+      "PS169Q"
+    ],
+    "support": 3
+  },
+  {
+    "tag": "CP",
+    "spec_number": "15858",
+    "description": "Condensate Drain Pump for UV-2.2",
+    "descriptions": [
+      "Condensate Drain Pump for UV-2.2"
+    ],
+    "projects": [
+      "PS169Q"
+    ],
+    "support": 1
+  },
+  {
+    "tag": "CUH",
+    "spec_number": "15836",
+    "description": "Ceiling Surface Electric Cabinet Unit Heater",
+    "descriptions": [
+      "Ceiling Surface Electric Cabinet Unit Heater"
+    ],
+    "projects": [
+      "PS169Q"
+    ],
+    "support": 3
+  },
+  {
+    "tag": "CV",
+    "spec_number": "15835",
+    "description": "Hot Water Convector (Wall Recessed/1.8MBH/Cast Iron Heating Element)",
+    "descriptions": [
+      "Hot Water Convector (Wall Recessed/1.8MBH/Cast Iron Heating Element)",
+      "Hot Water Convector (Wall Recessed/3.0MBH/Cast Iron Heating Element)",
+      "Hot Water Convector (Wall Recessed/4.8MBH/Cast Iron Heating Element)",
+      "Hot Water Convector (Wall Recessed/1.7MBH/Cast Iron Heating Element)",
+      "Hot Water Convector (Wall Recessed/4.9MBH/Cast Iron Heating Element)",
+      "Hot Water Convector (Wall Recessed/2.5MBH/Cast Iron Heating Element)",
+      "Hot Water Convector (Wall Recessed/2.95MBH/Cast Iron Heating Element)",
+      "Hot Water Convector (Wall Recessed/4.2MBH/Cast Iron Heating Element)",
+      "Hot Water Convector (Wall Recessed/__MBH/Cast Iron Heating Element)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 47
+  },
+  {
+    "tag": "DOAS",
+    "spec_number": "15934",
+    "description": "Constant Volume Air Handling Unit",
+    "descriptions": [
+      "Constant Volume Air Handling Unit"
+    ],
+    "projects": [
+      "PS169Q"
+    ],
+    "support": 1
+  },
+  {
+    "tag": "ECUH",
+    "spec_number": "15836",
+    "description": "Electric Cabinet Unit Heater (Ceiling Recessed/250cfm)",
+    "descriptions": [
+      "Electric Cabinet Unit Heater (Ceiling Recessed/250cfm)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 1
+  },
+  {
+    "tag": "EF",
+    "spec_number": "15860",
+    "description": "Belt Driven Centrifugal Exhaust Fan",
+    "descriptions": [
+      "Belt Driven Centrifugal Exhaust Fan",
+      "Exhaust Fan with VFD (1665cfm/1.75 in.wg./Upblast/Direct Drive/2HP)",
+      "Downblast Centrifugal Fan",
+      "Centrifugal Utility Exhaust Fan",
+      "Exhaust Fan with CMUF (150cfm/1.25 in.wg./Downblast/Direct Drive/0.33HP)",
+      "Exhaust Fan with CMUF (225cfm/1.5 in.wg./Downblast/Direct Drive/1HP)",
+      "Exhaust Fan with CMUF (275cfm/2 in.wg./Upblast/Direct Drive/0.62HP)",
+      "Exhaust Fan with VFD (1270cfm/2 in.wg./Upblast/Belt Drive/1HP)",
+      "Exhaust Fan with VFD (2060cfm/2 in.wg./Upblast/Direct Drive/1.5HP)",
+      "Exhaust Fan with VFD (2200cfm/3 in.wg./Upblast/Belt Drive/3HP)",
+      "Exhaust Fan with VFD (2220cfm/1.75 in.wg./Downblast/Direct Drive/1.5HP)",
+      "Exhaust Fan with VFD (2220cfm/2 in.wg./Upblast/Direct Drive/2HP)",
+      "Exhaust Fan with VFD (3200cfm/1.5 in.wg./Upblast/Belt Drive/2HP)",
+      "Exhaust Fan with VFD (3300cfm/2 in.wg./Downblast/Direct Drive/2HP)",
+      "Exhaust Fan with VFD (3531cfm/2 in.wg./Downblast/Direct Drive/2HP)",
+      "Exhaust Fan with VFD (5190cfm/2 in.wg./Downblast/Direct Drive/5HP)",
+      "Exhaust Fan with VFD (6300cfm/1.5 in.wg./Inline/Belt Drive/5HP)",
+      "Exhaust Fan with VFD (8050cfm/1.5 in.wg./Upblast/Belt Drive/5HP)",
+      "Exhaust Fan with VFD (900cfm/1.5 in.wg./Downblast/Direct Drive/1HP)"
+    ],
+    "projects": [
+      "IS443K295",
+      "IS662K",
+      "PS169Q",
+      "PS48M"
+    ],
+    "support": 25
+  },
+  {
+    "tag": "ERV",
+    "spec_number": "15861",
+    "description": "Ceiling Hung Energy Recovery Ventilator",
+    "descriptions": [
+      "Ceiling Hung Energy Recovery Ventilator"
+    ],
+    "projects": [
+      "PS169Q"
+    ],
+    "support": 2
+  },
+  {
+    "tag": "ET",
+    "spec_number": "15515",
+    "description": "Expansion Tank (57 Gallons)",
+    "descriptions": [
+      "Expansion Tank (57 Gallons)",
+      "Expansion Tank"
+    ],
+    "projects": [
+      "PS169Q",
+      "PS48M"
+    ],
+    "support": 3
+  },
+  {
+    "tag": "EUH",
+    "spec_number": "15836",
+    "description": "Electric Unit Heater (Horizontal Type/350cfm)",
+    "descriptions": [
+      "Electric Unit Heater (Horizontal Type/350cfm)",
+      "Electric Unit Heater (Horizontal Type/2100cfm)",
+      "Ceiling Hung Electric Unit Heater"
+    ],
+    "projects": [
+      "PS169Q",
+      "PS48M"
+    ],
+    "support": 8
+  },
+  {
+    "tag": "FCU",
+    "spec_number": "15838",
+    "description": "Classroom Fan Coil Unit",
+    "descriptions": [
+      "Classroom Fan Coil Unit"
+    ],
+    "projects": [
+      "PS169Q"
+    ],
+    "support": 3
+  },
+  {
+    "tag": "FFS",
+    "spec_number": "15590",
+    "description": "Fuel Oil Filtration System",
+    "descriptions": [
+      "Fuel Oil Filtration System"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 1
+  },
+  {
+    "tag": "FP",
+    "spec_number": "15590",
+    "description": "Fuel Oil Transfer Pump (Duplex)",
+    "descriptions": [
+      "Fuel Oil Transfer Pump (Duplex)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 1
+  },
+  {
+    "tag": "FTR",
+    "spec_number": "15835",
+    "description": "Hot Water Fin Tube Radiator (1000BTU/HR/FT, 2 rows, 3/4\" Copper)",
+    "descriptions": [
+      "Hot Water Fin Tube Radiator (1000BTU/HR/FT, 2 rows, 3/4\" Copper)",
+      "Hot Water Fin Tube Radiator (1125BTU/HR/FT, 3 rows, 3/4\" Copper)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 2
+  },
+  {
+    "tag": "GEF",
+    "spec_number": "15860",
+    "description": "Downblast Centrifugal Fan",
+    "descriptions": [
+      "Downblast Centrifugal Fan"
+    ],
+    "projects": [
+      "IS443K295"
+    ],
+    "support": 14
+  },
+  {
+    "tag": "GMU",
+    "spec_number": "15517",
+    "description": "Dual Temp. Water Glycol Makeup & Chem. Treatment (50 Gallons/30% Glycol)",
+    "descriptions": [
+      "Dual Temp. Water Glycol Makeup & Chem. Treatment (50 Gallons/30% Glycol)",
+      "Glycol Makeup Unit"
+    ],
+    "projects": [
+      "PS169Q",
+      "PS48M"
+    ],
+    "support": 2
+  },
+  {
+    "tag": "GV",
+    "spec_number": "15872",
+    "description": "Gravity Ventilator (Galvanized Steel/0.5\" Al. Mesh for bird screen and fine Al. mesh for insect screen)",
+    "descriptions": [
+      "Gravity Ventilator (Galvanized Steel/0.5\" Al. Mesh for bird screen and fine Al. mesh for insect screen)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 2
+  },
+  {
+    "tag": "HC",
+    "spec_number": "15792",
+    "description": "Steam Heating Coil (6coils - 3 coils H x 2 coils W)",
+    "descriptions": [
+      "Steam Heating Coil (6coils - 3 coils H x 2 coils W)",
+      "Steam Heating Coil (9coils - 2 coils H x 2 coils W)",
+      "Steam Heating Coil (9coils - 3 coils H x 3 coils W)"
+    ],
+    "projects": [
+      "IS443K295"
+    ],
+    "support": 3
+  },
+  {
+    "tag": "HP",
+    "spec_number": "15783",
+    "description": "Split Packaged AC/Heat Pump Unit",
+    "descriptions": [
+      "Split Packaged AC/Heat Pump Unit"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 4
+  },
+  {
+    "tag": "HP/ACCU",
+    "spec_number": "15783",
+    "description": "Split Type Unit (Evaporator/Condensing Unit)",
+    "descriptions": [
+      "Split Type Unit (Evaporator/Condensing Unit)"
+    ],
+    "projects": [
+      "IS662K"
+    ],
+    "support": 4
+  },
+  {
+    "tag": "HWP",
+    "spec_number": "15540",
+    "description": "End Suction Pump",
+    "descriptions": [
+      "End Suction Pump"
+    ],
+    "projects": [
+      "PS169Q"
+    ],
+    "support": 3
+  },
+  {
+    "tag": "HWUH",
+    "spec_number": "15836",
+    "description": "Hot Water Unit Heater (Horizontal Type/420cfm)",
+    "descriptions": [
+      "Hot Water Unit Heater (Horizontal Type/420cfm)",
+      "Hot Water Unit Heater (Horizontal Type/950cfm)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 4
+  },
+  {
+    "tag": "HX",
+    "spec_number": "15670",
+    "description": "Plate and Frame Heat Exchanger ( Gasketed Type)",
+    "descriptions": [
+      "Plate and Frame Heat Exchanger ( Gasketed Type)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 1
+  },
+  {
+    "tag": "REC",
+    "spec_number": "15836",
+    "description": "Electric Reheat Coil (Duct Mounted/28.3MBH/8.5KW)",
+    "descriptions": [
+      "Electric Reheat Coil (Duct Mounted/28.3MBH/8.5KW)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 1
+  },
+  {
+    "tag": "SA",
+    "spec_number": "15860",
+    "description": "Centrifugal Utility Supply Fan",
+    "descriptions": [
+      "Centrifugal Utility Supply Fan"
+    ],
+    "projects": [
+      "IS662K"
+    ],
+    "support": 1
+  },
+  {
+    "tag": "ST",
+    "spec_number": "15891",
+    "description": "Sound Attenuator",
+    "descriptions": [
+      "Sound Attenuator"
+    ],
+    "projects": [
+      "PS169Q"
+    ],
+    "support": 2
+  },
+  {
+    "tag": "TX",
+    "spec_number": "15860",
+    "description": "Exhaust Fan with CMUF (400cfm/1 in.wg./Upblast/Direct Drive/0.5HP)",
+    "descriptions": [
+      "Exhaust Fan with CMUF (400cfm/1 in.wg./Upblast/Direct Drive/0.5HP)"
+    ],
+    "projects": [
+      "PS48M"
+    ],
+    "support": 1
+  },
+  {
+    "tag": "UV",
+    "spec_number": "15857",
+    "description": "Unit Ventilator (1000cfm/Type B)",
+    "descriptions": [
+      "Unit Ventilator (1000cfm/Type B)",
+      "Unit Ventilator (750cfm/Type A)",
+      "Unit Ventilator (1250cfm/Type C)",
+      "Unit Ventilator",
+      "Unit Ventilator (1500cfm/Type D)"
+    ],
+    "projects": [
+      "PS169Q",
+      "PS48M"
+    ],
+    "support": 38
+  },
+  {
+    "tag": "VAV",
+    "spec_number": "15930",
+    "description": "Variable Air Volume Box (Min.50cfm/Max.100cfm/4\" Neck)",
+    "descriptions": [
+      "Variable Air Volume Box (Min.50cfm/Max.100cfm/4\" Neck)",
+      "Variable Air Volume Box (Min.100cfm/Max.250cfm/6\" Neck)",
+      "Variable Air Volume Box (Min.1000cfm/Max.2100cfm/16\" Neck)",
+      "Variable Air Volume Box (Min.100cfm/Max.200cfm/6\" Neck)",
+      "Variable Air Volume Box (Min.150cfm/Max.400cfm/8\" Neck)",
+      "Variable Air Volume Box (Min.500cfm/Max.1000cfm/14\" Neck)",
+      "Variable Air Volume Box (Min.600cfm/Max.1200cfm/14\" Neck)",
+      "Variable Air Volume Box (Min.75cfm/Max.200cfm/4\" Neck)",
+      "Variable Air Volume Box (Min.100cfm/Max.400cfm/6\" Neck)",
+      "Variable Air Volume Box (Min.125cfm/Max.250cfm/6\" Neck)",
+      "Variable Air Volume Box (Min.150cfm/Max.400cfm/6\" Neck)",
+      "VAV Box",
+      "Variable Air Volume Box (Min.100cfm/Max.300cfm/6\" Neck)",
+      "Variable Air Volume Box (Min.120cfm/Max.300cfm/6\" Neck)",
+      "Variable Air Volume Box (Min.125cfm/Max.350cfm/6\" Neck)",
+      "Variable Air Volume Box (Min.125cfm/Max.375cfm/6\" Neck)",
+      "Variable Air Volume Box (Min.150cfm/Max.450cfm/8\" Neck)",
+      "Variable Air Volume Box (Min.200cfm/Max.420cfm/8\" Neck)",
+      "Variable Air Volume Box (Min.200cfm/Max.500cfm/8\" Neck)",
+      "Variable Air Volume Box (Min.275cfm/Max.825cfm/10\" Neck)",
+      "Variable Air Volume Box (Min.300cfm/Max.550cfm/8\" Neck)",
+      "Variable Air Volume Box (Min.300cfm/Max.600cfm/10\" Neck)",
+      "Variable Air Volume Box (Min.300cfm/Max.600cfm/8\" Neck)",
+      "Variable Air Volume Box (Min.350cfm/Max.800cfm/10\" Neck)",
+      "Variable Air Volume Box (Min.400cfm/Max.1200cfm/14\" Neck)",
+      "Variable Air Volume Box (Min.500cfm/Max.1000cfm/10\" Neck)",
+      "Variable Air Volume Box (Min.50cfm/Max.140cfm/4\" Neck)",
+      "Variable Air Volume Box (Min.550cfm/Max.1100cfm/14\" Neck)",
+      "Variable Air Volume Box (Min.600cfm/Max.1300cfm/14\" Neck)",
+      "Variable Air Volume Box (Min.625cfm/Max.1250cfm/14\" Neck)"
+    ],
+    "projects": [
+      "PS169Q",
+      "PS48M"
+    ],
+    "support": 55
+  }
+]
+
