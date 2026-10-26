@@ -16,7 +16,7 @@ Package downloads were unavailable in the execution environment. Flask and its p
 
 The new detection workflow was tested with mocked detector outputs and real PDF rendering/cropping. OpenCV could not be installed in this environment because package downloads were blocked. The supplied native algorithm therefore remains unverified here; install requirements.txt and run the four native detector tests before relying on detection results. The GitHub Actions workflow includes a required OpenCV import check, but was not run here.
 
-Browser automation could not run because no Chromium executable was installed. Desktop/mobile visual layout, browser file selection, drag-to-crop interaction, and JavaScript-driven processing loops need a browser acceptance pass. The server-side forms remain usable without JavaScript; processing can be advanced one batch per form submission.
+Browser automation could not run because no Chromium executable was installed. Desktop/mobile visual layout, browser file selection, drag-to-crop interaction, and JavaScript-driven processing loops need a browser acceptance pass. The processing form endpoints can still advance one batch per submission. The restyled interface uses JavaScript for dialogs, mobile navigation, canvas overlays and direct uploads.
 
 See `MIGRATION.md` for cutover checks and existing-data handling.
 
@@ -28,3 +28,10 @@ The 42 cloud tests run the app's existing workflows and detection orchestration 
 A real local HTTP server served health, login, JavaScript, and CSS successfully after the static asset migration. Python compilation and JavaScript syntax checks passed. Native OpenCV remains unavailable in this runtime; four native tests are explicitly skipped. The deployed owner-only check and smoke script are provided to close that gap in Vercel.
 
 Not verified: a clean install of the complete requirements, Vercel build/bundle compatibility, actual native OpenCV execution, real Turso/R2 calls, Gemini responses, and browser interaction/visual parity. No production deployment was attempted or modified. See DEPLOY-VERCEL.md for the mandatory preview acceptance workflow and fallback.
+
+
+## UI parity update
+
+After the UI update, 105 tests passed and 4 native OpenCV tests were skipped (109 total). The 12 added UI tests run six scenarios on SQLite and the existing Turso HTTP-protocol emulator. They cover template compilation and rendering, populated source/product/chat/review screens, project navigation, preserved direct-upload form wiring, output escaping and authorization, and drawing detection proposals → accept → edit → extract → equipment review. Detection and Gemini outputs are mocked; PDF operations are real.
+
+Python compilation and JavaScript syntax checks passed. No Chromium executable is installed, so no pixel-level comparison, browser interaction, responsive screenshot, or live Vercel acceptance is claimed. `UI-PARITY.md` records the exact remaining checks and differences. Deployment-check, smoke script, storage adapters, schema, API dispatch, configuration and processing modules are byte-for-byte unchanged from the previous Python ZIP.

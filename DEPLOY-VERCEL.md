@@ -11,7 +11,7 @@ This release is prepared for a **preview deployment**. It has not been deployed 
 - Gemini still uses the Settings screen's encrypted key or `GEMINI_API_KEY`. Preserve the original `SETTINGS_SECRET` to decrypt existing saved keys.
 - `app.py`, `vercel.json`, `.python-version`, and `public/static/` provide the Flask deployment entrypoint and static assets.
 - Startup does **not** migrate a remote database. Schema initialization is an explicit `python migrate.py` step.
-- Existing Python UI/workflows are retained. The original Next.js reference was reviewed for workspace, specifications, products, crop review, equipment, and settings flows; this Jinja interface is not a pixel-identical React port. Browser visual parity remains an acceptance check.
+- The Jinja UI has been restyled against the supplied Next.js screenshots and original components. See `UI-PARITY.md` for screen coverage, intentional differences and outstanding browser checks. Python processing and storage contracts are retained.
 
 ## 1. Prepare a preview branch and test data
 
@@ -80,7 +80,7 @@ No OpenCV tests should be skipped in your installed environment. The GitHub Acti
 
 ## 5. Deploy the preview
 
-In Vercel, use the Python branch as a preview, or create a separate preview project from that branch if changing framework settings would affect the existing Next.js production project.
+Create a **separate Vercel project** for this Python preview, using the Python branch and test Turso/R2 values. Keep the current Next.js production project and its framework settings unchanged until preview acceptance and an explicit cutover.
 
 - Framework: **Flask** (the included manifest declares it).
 - Root Directory: the directory containing `app.py` and `requirements.txt`.

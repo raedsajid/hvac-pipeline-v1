@@ -5,6 +5,16 @@ from .domain import TYPES
 from .store import AppError,all_rows,one,owned_doc,owned_project,owned_requirement
 
 def register_views(app,response_file):
+    @app.context_processor
+    def navigation():
+        user=g.get('user')
+        return dict(nav_projects=all_rows('SELECT id,name FROM projects WHERE user_id=? ORDER BY created DESC',user['id']) if user else [])
+
+    @app.template_filter('display_date')
+    def display_date(value):
+        from datetime import datetime,timezone
+        return datetime.fromtimestamp(value/1000,timezone.utc).strftime('%b %d, %Y') if value else ''
+
     @app.get('/')
     def index(): return redirect('/workspace' if g.user else '/login')
 
@@ -44,7 +54,11 @@ def register_views(app,response_file):
     @app.get('/projects/<pid>')
     def project(pid):
         u=auth.require_user(); data=services.project_detail(pid,u['id'])
-        return render_template('project.html',**data,equipment=equipment.list_log(pid,u['id']))
+        tab=request.args.get('tab','specs')
+        if tab not in ('specs','register','equipment','source','chat','activity','drawings'): tab='specs'
+        if tab in ('source','chat') and data['documents']:
+            return redirect('/documents/'+data['documents'][0]['id']+'?tab='+tab)
+        return render_template('project.html',**data,project_tab=tab,equipment=equipment.list_log(pid,u['id']))
 
     @app.post('/projects/<pid>/upload')
     def upload(pid):
@@ -86,7 +100,11 @@ def register_views(app,response_file):
         if edit: page=edit['page']
         preview=request.args.get('regions','detected')
         if preview not in ('detected','saved'): preview='detected'
-        return render_template('document.html',detection=detection,edit=edit,preview=preview,selected_region=request.args.get('region',''),accepted_ids={c['id'] for c in (crop_data or {}).get('crops',[])},document=d,project=owned_project(d['project_id'],u['id']),parsed=parsed,evidence=[e for e in (parsed or {}).get('evidence',[]) if e['page']==page],page=page,tab=tab,catalog=services.catalog(did,u['id']),messages=messages,crop_data=crop_data)
+        choices=all_rows('SELECT id,filename,doc_kind FROM project_docs WHERE project_id=? ORDER BY created',d['project_id'])
+        findings=[]
+        for row in all_rows('SELECT id,data,status FROM requirements WHERE doc_id=? ORDER BY updated',did):
+            item=json.loads(row['data']); item.update(id=row['id'],status=row['status']); findings.append(item)
+        return render_template('document.html',document_choices=choices,findings=findings,detection=detection,edit=edit,preview=preview,selected_region=request.args.get('region',''),accepted_ids={c['id'] for c in (crop_data or {}).get('crops',[])},document=d,project=owned_project(d['project_id'],u['id']),parsed=parsed,evidence=[e for e in (parsed or {}).get('evidence',[]) if e['page']==page],page=page,tab=tab,catalog=services.catalog(did,u['id']),messages=messages,crop_data=crop_data)
 
     @app.post('/documents/<did>/action')
     def document_action(did):

@@ -1,19 +1,19 @@
-<div class="panel section-space">
-  <div class="sectionhead"><div><h2>Detect and review tables</h2><p class="small muted">Detection runs locally in Python. Accept the schedules you need, check their borders, then extract rows.</p></div><span class="badge">{{ detection.cursor }} / {{ detection.pages }} pages scanned</span></div>
+<h1 class="section-title drawing-title">Review drawing crops</h1><div class="workflow-strip crop-steps"><span><b>1</b> Detect tables</span><span><b>2</b> Review &amp; accept crops</span><span><b>3</b> Extract schedule</span><span><b>4</b> Equipment log</span></div><div class="panel">
+  <div class="sectionhead"><div><h2>Detect and review tables</h2><p class="small muted">Accept the schedules you need, check their borders, then extract rows.</p></div><span class="badge">{{ detection.cursor }} / {{ detection.pages }} pages scanned</span></div>
   <div class="actions">
     <form method="post" action="/documents/{{ document.id }}/action" data-job="/api/documents/{{ document.id }}/prepare-drawing-crops">
       <input type="hidden" name="_csrf" value="{{ csrf }}"><button name="action" value="detect" class="primary" {{ 'disabled' if detection.done }}>{{ 'Detection complete' if detection.done else ('Resume detection' if detection.cursor else 'Detect tables') }}</button>
     </form>
     <form method="post" action="/documents/{{ document.id }}/tables"><input type="hidden" name="_csrf" value="{{ csrf }}"><input type="hidden" name="detection_revision" value="{{ detection.revision }}"><button name="action" value="reset">Clear suggestions to rerun</button></form>
   </div>
-  <div class="job-status small {{ 'error' if detection.error }}" role="status" aria-live="polite">{{ detection.error or '' }}</div>
-  <p class="small muted section-space">Designed for tables with visible ruling lines. Borderless tables, faint scans, and narrow schedules on the right edge can be missed. Add a manual region when needed. Detection adds space above each table for its title.</p>
+  <progress class="detection-progress" max="100" value="{{ detection.progress }}" aria-label="Pages scanned"></progress><div class="job-status small {{ 'error' if detection.error }}" role="status" aria-live="polite">{{ detection.error or '' }}</div>
+  <details class="drawing-help"><summary>Detection tips</summary><p>Designed for tables with visible ruling lines. Borderless tables, faint scans, and narrow schedules on the right edge can be missed. Add a manual region when needed. Detection adds space above each table for its title.</p></details>
 </div>
 <div class="review-grid section-space">
   <section class="panel pdf-panel">
     <div class="sectionhead"><h2>Page {{ page }}</h2><form method="get" class="inline-form"><input type="hidden" name="tab" value="crops"><input class="page-input" type="number" name="page" min="1" max="{{ document.pages }}" value="{{ page }}" aria-label="Page"><select name="regions" aria-label="Page overlays"><option value="detected" {{ 'selected' if preview=='detected' }}>Detected tables</option><option value="saved" {{ 'selected' if preview=='saved' }}>Saved regions</option></select><button>Go</button></form></div>
     <p class="small muted">{{ 'Suggested table borders' if preview=='detected' else 'Saved crop borders' }} are highlighted. Drag to {{ 'adjust the selected region' if edit else 'draw a manual region' }}.</p>
-    <div class="crop-surface"><img class="pdf-page crop-image" src="/api/documents/{{ document.id }}/page?page={{ page }}&amp;regions={{ preview }}&amp;region={{ selected_region|urlencode }}" alt="{{ preview }} table borders on page {{ page }}. Drag to select a crop." draggable="false"><canvas class="crop-overlay" aria-hidden="true"></canvas></div>
+    <div class="crop-surface" data-doc-id="{{ document.id }}" data-detection-revision="{{ detection.revision }}" data-page="{{ page }}" data-selected="{{ edit.id if edit else selected_region }}" data-regions="{{ (detection.proposals if preview=='detected' else crop_data.crops)|tojson|forceescape }}"><img class="pdf-page crop-image" src="/api/documents/{{ document.id }}/page?page={{ page }}" alt="{{ preview }} table borders on page {{ page }}. Drag to select a crop." draggable="false"><canvas class="crop-overlay" aria-hidden="true"></canvas></div><p class="small muted section-space" data-crop-feedback role="status" aria-live="polite">Red boxes mark regions on this page. Select a suggestion or drag to draw a crop.</p>
   </section>
   <section>
     <div class="panel">
@@ -22,26 +22,26 @@
       <form method="post" action="/documents/{{ document.id }}/tables">
         <input type="hidden" name="_csrf" value="{{ csrf }}"><input type="hidden" name="revision" value="{{ crop_data.revision }}"><input type="hidden" name="detection_revision" value="{{ detection.revision }}">
         <div class="table-suggestions">
-        {% for c in detection.proposals %}<div class="crop-row"><label class="check"><input type="checkbox" name="ids" value="{{ c.id }}" {{ 'disabled' if c.id in accepted_ids }}>Table {{ loop.index }} · Page {{ c.page }} {% if c.id in accepted_ids %}<span class="badge approved">Saved</span>{% endif %}</label><a href="?tab=crops&amp;page={{ c.page }}&amp;region={{ c.id }}">Inspect</a></div>{% endfor %}
-        </div><button class="primary full section-space">Accept selected tables</button>
+        {% for c in detection.proposals %}<div class="crop-row" data-candidate="{{ c.id }}" data-accepted="{{ 'true' if c.id in accepted_ids else 'false' }}"><label class="check"><input type="checkbox" name="ids" value="{{ c.id }}" {{ 'disabled' if c.id in accepted_ids }}>Table {{ loop.index }} · Page {{ c.page }} {% if c.id in accepted_ids %}<span class="badge approved">Saved</span>{% endif %}</label><a href="?tab=crops&amp;page={{ c.page }}&amp;region={{ c.id }}">Inspect</a>{% if c.id not in accepted_ids %}<button type="button" data-reject-candidate="{{ c.id }}" aria-pressed="false">Reject</button>{% endif %}</div>{% endfor %}
+        </div><button class="primary full section-space" data-accept-candidates>Accept selected tables</button>
       </form>
       {% elif detection.done %}<p class="muted">No ruled tables were found. Draw a region below to continue with manual review.</p>
       {% else %}<p class="muted">Run detection to find candidate tables. You can also add manual regions below.</p>{% endif %}
-      <p class="small muted section-space">Only saved regions are sent for schedule extraction. Accepting new tables resets the drawing's extracted rows.</p>
+      <p class="small muted section-space">Only saved regions are extracted. Rejected suggestions stay unchecked in this browser tab; Undo restores them. Accepting new tables resets extracted rows.</p>
     </div>
     <div class="panel section-space">
       <h2>{{ 'Edit saved region' if edit else 'Add a manual region' }}</h2>
       <form action="/documents/{{ document.id }}/crops" method="post" id="crop-form">
         <input type="hidden" name="_csrf" value="{{ csrf }}"><input type="hidden" name="revision" value="{{ crop_data.revision }}"><input type="hidden" name="page" value="{{ page }}"><input type="hidden" name="crop_id" value="{{ edit.id if edit else '' }}">
-        <div class="coordinate-grid">{% for name,label,value in [('x','Left',0),('y','Top',0),('w','Width',1),('h','Height',1)] %}<label>{{ label }}<input type="number" name="{{ name }}" min="0" max="1" step="any" value="{{ edit.box[loop.index0] if edit else value }}" required></label>{% endfor %}</div>
-        <button class="primary full">{{ 'Update region' if edit else 'Save region' }} on page {{ page }}</button>
+        <details class="drawing-help" {{ 'open' if edit }}><summary>Crop coordinates</summary><div class="coordinate-grid">{% for name,label,value in [('x','Left',0),('y','Top',0),('w','Width',1),('h','Height',1)] %}<label>{{ label }}<input type="number" name="{{ name }}" min="0" max="1" step="any" value="{{ edit.box[loop.index0] if edit else value }}" required></label>{% endfor %}</div></details>
+        <button class="primary full section-space">{{ 'Update region' if edit else 'Save region' }} on page {{ page }}</button>
         {% if edit %}<a href="?tab=crops&amp;page={{ page }}">Cancel editing / add a new region</a>{% endif %}
       </form><p class="small muted section-space">Coordinates are fractions of the visible page (0–1). Include the title, column headings, and all rows. Changing saved regions resets extracted rows.</p>
     </div>
     <div class="panel section-space"><h2>Saved regions · {{ crop_data.crops|length }}</h2>
       {% for c in crop_data.crops %}<form method="post" action="/documents/{{ document.id }}/crops" class="crop-row"><input type="hidden" name="_csrf" value="{{ csrf }}"><input type="hidden" name="revision" value="{{ crop_data.revision }}"><input type="hidden" name="page" value="{{ page }}"><div><strong>Region {{ loop.index }} · Page {{ c.page }}</strong><small>{{ 'Detected table' if c.id.startswith('detected-') else 'Manual region' }}</small></div><a href="?tab=crops&amp;edit={{ c.id|urlencode }}&amp;regions=saved">Edit</a><button name="remove" value="{{ c.id }}">Remove</button></form>{% else %}<p class="muted">No saved regions. Accept suggestions or save a manual crop first.</p>{% endfor %}
       <form class="section-space" method="post" action="/documents/{{ document.id }}/action" data-job="/api/documents/{{ document.id }}/process-drawing"><input type="hidden" name="_csrf" value="{{ csrf }}"><button name="action" value="extract" class="primary full" {{ 'disabled' if not crop_data.crops }}>Extract schedule rows</button></form><div class="job-status small" role="status" aria-live="polite"></div>
-      <p class="small muted section-space">Row extraction uses your Gemini connection. After extraction, build or refresh the <a href="/projects/{{ project.id }}#equipment">equipment log</a>.</p>
+      <p class="small muted section-space">Row extraction uses your Gemini connection. After extraction, build or refresh the <a href="/projects/{{ project.id }}?tab=equipment">equipment log</a>.</p>
     </div>
   </section>
 </div>

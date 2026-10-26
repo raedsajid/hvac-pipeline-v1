@@ -11,7 +11,10 @@ BuildERP now runs as a Python application.
 
 The first account becomes owner. Add your Gemini key in Settings.
 Table detection now runs inside Python with OpenCV.
-Open a drawing > Table & crop review > Detect tables > Accept selected tables.
+Open Equipment Log > Upload drawings > Review crops > Detect tables > Accept selected tables.
 Check saved regions, then Extract schedule rows. See TABLE-DETECTION.md.
 No Next.js or OpenCV sidecar is needed.
 For existing projects/data, read MIGRATION.md before switching deployments.
+
+UI update: see UI-PARITY.md for matched screens and remaining checks.
+See UI-CHANGES.md for UI files versus Python presentation-only changes.
