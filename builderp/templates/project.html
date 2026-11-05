@@ -3,9 +3,25 @@
 <div class="project-tools"><span>{{ specifications|length }} specifications · {{ requirements|length }} submittals</span><button class="textbutton danger" type="button" data-open-dialog="delete-project">Delete project</button></div>
 {% for d in documents %}{% if d.error or d.log_error %}<p class="notice error">{{ d.filename }}: {{ d.error or d.log_error }}</p>{% endif %}{% endfor %}
 {% if project_tab in ['specs','drawings'] %}
-<div class="workflow-strip"><span class="current">01 · Upload</span><span>02 · {{ 'Detect & review crops' if project_tab=='drawings' else 'Read & prepare chat' }}</span><span>03 · {{ 'Extract schedule' if project_tab=='drawings' else 'Generate log' }}</span><span>04 · Edit & export</span></div>
-<div class="sectionhead section-space"><div><h1 class="section-title">{{ 'Drawings' if project_tab=='drawings' else 'Specifications' }}</h1><p class="muted">{{ 'Detect tables, review their borders, then extract schedule rows.' if project_tab=='drawings' else 'Upload a specification, then open it to read and prepare chat.' }}</p></div><button class="primary" type="button" data-open-dialog="upload-document">{{ icon('upload',18) }} Upload PDFs</button></div>
-<div class="document-list">{% for d in (drawing_docs if project_tab=='drawings' else specifications) %}<a class="document-row" href="/documents/{{ d.id }}{{ '?tab=crops' if d.doc_kind=='drawing' else '' }}"><div class="document-info"><h3>{{ d.specLabel or d.filename }}</h3><p>{{ d.pages }} pages · {{ d.filename }}</p></div><span class="badge {{ 'approved' if d.status=='prepared' else '' }}">{{ 'Ready' if d.status=='prepared' else d.status|replace('_',' ')|title }}</span></a>{% else %}<div class="empty-state"><span class="empty-icon">{{ icon('file',30) }}</span><h2>{{ 'Add your first drawing.' if project_tab=='drawings' else 'Start with your specifications.' }}</h2><p>Upload a PDF to begin working with its source.</p><button type="button" class="primary" data-open-dialog="upload-document">Upload PDFs</button></div>{% endfor %}</div>
+{% set is_drawings = project_tab=='drawings' %}
+{% set list_docs = drawing_docs if is_drawings else specifications %}
+{% set ready_docs = list_docs|selectattr('status','equalto','prepared')|list %}
+{% set progress = 100 if list_docs and ready_docs|length == list_docs|length else (25 if list_docs else 0) %}
+<div class="workflow-progress" aria-live="polite">
+  <div class="row space">
+    <div class="row">{{ icon('layers',17) }}<b>{% if is_drawings %}{% if list_docs %}Upload drawings, then detect and review crops{% else %}Upload drawings to begin{% endif %}{% else %}{% if ready_docs and ready_docs|length == list_docs|length %}Specifications ready · generate your submittal log{% elif list_docs %}Upload specifications to begin{% else %}Upload specifications to begin{% endif %}{% endif %}</b></div>
+    <span>{{ progress }}%</span>
+  </div>
+  <progress class="detection-progress workflow-bar" max="100" value="{{ progress }}"></progress>
+  <div class="workflow-stages">
+    <span class="{{ 'current' if progress < 50 }}">01 · Upload</span>
+    <span class="{{ 'current' if progress >= 25 and progress < 75 }}">02 · {{ 'Detect & review crops' if is_drawings else 'Read & prepare chat' }}</span>
+    <span class="{{ 'current' if progress >= 50 and progress < 100 }}">03 · {{ 'Extract schedule' if is_drawings else 'Generate log' }}</span>
+    <span class="{{ 'current' if progress >= 100 }}">04 · Edit & export</span>
+  </div>
+</div>
+<div class="section-row section-space"><div><h2>{{ 'Drawings' if is_drawings else 'Specifications' }}</h2><p class="muted">{{ 'Detect tables, review their borders, then extract schedule rows.' if is_drawings else 'Upload once. Reading and chat preparation start from the document page.' }}</p></div><button class="primary orange" type="button" data-open-dialog="upload-document">{{ icon('upload',17) }} Upload PDFs</button></div>
+<div class="document-list">{% for d in list_docs %}<a class="document-row" href="/documents/{{ d.id }}{{ '?tab=crops' if d.doc_kind=='drawing' else '' }}"><div class="document-info"><h3 class="spec-list-title">{{ d.specLabel or d.filename }}</h3><p>{{ d.pages }} pages · {{ d.filename }}</p></div><span class="badge {{ 'approved' if d.status=='prepared' else '' }}">{{ 'Ready' if d.status=='prepared' else d.status|replace('_',' ')|title }}</span></a>{% else %}<div class="empty-state"><span class="empty-icon">{{ icon('file',30) }}</span><h2>{{ 'Add your first drawing.' if is_drawings else 'Start with your specifications.' }}</h2><p>{{ 'Upload drawings (table crops auto-detect) → review → extract → generate log.' if is_drawings else 'Upload specifications and open a document to prepare chat and generate the submittal log.' }}</p><button type="button" class="primary orange" data-open-dialog="upload-document">Upload PDFs</button></div>{% endfor %}</div>
 {% elif project_tab=='register' %}{% include '_register.html' %}
 {% elif project_tab=='equipment' %}{% include '_equipment.html' %}
 {% elif project_tab=='activity' %}<h1 class="section-title">Project activity</h1><section class="activity-list section-space">{% for e in events %}<article class="activity"><span class="activity-icon">{{ icon('clock',17) }}</span><div><p>{{ e.message }}</p><time data-timestamp="{{ e.created }}">{{ e.created|display_date }}</time></div></article>{% else %}<div class="empty">No activity yet.</div>{% endfor %}</section>
