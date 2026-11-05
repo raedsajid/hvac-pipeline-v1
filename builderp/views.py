@@ -62,10 +62,14 @@ def register_views(app,response_file):
 
     @app.post('/projects/<pid>/upload')
     def upload(pid):
-        u=auth.require_user(); file=request.files.get('file')
-        if not file: raise AppError(400,'Select a PDF.')
-        result=services.upload(u['id'],pid,file.filename,file.read(pdf.MAX_SIZE+1),request.form.get('docKind','spec'))
-        return redirect('/documents/'+result['docId'])
+        u=auth.require_user(); files=[f for f in request.files.getlist('file') if f and f.filename]
+        if not files: raise AppError(400,'Select at least one PDF.')
+        kind=request.form.get('docKind','spec'); last=None
+        for file in files:
+            last=services.upload(u['id'],pid,file.filename,file.read(pdf.MAX_SIZE+1),kind)
+        if len(files)>1:
+            return redirect('/projects/'+pid+('?tab=drawings' if kind=='drawing' else '?tab=specs'))
+        return redirect('/documents/'+last['docId']+('?tab=crops' if kind=='drawing' else ''))
 
     @app.post('/projects/<pid>/delete')
     def delete_project(pid):

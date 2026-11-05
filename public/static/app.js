@@ -29,13 +29,17 @@ for (const form of document.querySelectorAll('form[data-job]')) {
 for (const form of document.querySelectorAll('form[data-upload-project]')) {
   form.addEventListener('submit', async event => {
     event.preventDefault();
-    const file = form.elements.file.files[0];
+    const files = [...form.elements.file.files];
     const status = form.querySelector('.upload-status');
-    const button = form.querySelector('button');
-    if (!file || button.disabled) return;
-    if (file.size > 10 * 1024 * 1024) { status.textContent = 'Choose a PDF up to 10 MB.'; return; }
+    const button = form.querySelector('button[type=submit],button.upload-submit,button.primary');
+    if (!files.length || button.disabled) return;
+    const tooBig = files.find(file => file.size > 10 * 1024 * 1024);
+    if (tooBig) { status.textContent = `${tooBig.name} is over 10 MB. Choose PDFs up to 10 MB each.`; status.classList.add('error'); return; }
     button.disabled = true;
+    status.classList.remove('error');
     const endpoint = `/api/projects/${form.dataset.uploadProject}`;
+    const docKind = form.elements.docKind.value;
+    const returnTo = form.dataset.uploadReturn || `/projects/${form.dataset.uploadProject}?tab=${docKind === 'drawing' ? 'drawings' : 'specs'}`;
     const post = async (action, body) => {
       const response = await fetch(`${endpoint}/${action}`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
       const result = await response.json();
@@ -43,15 +47,20 @@ for (const form of document.querySelectorAll('form[data-upload-project]')) {
       return result;
     };
     try {
-      status.textContent = 'Preparing secure upload…';
-      const ticket = await post('upload-url', {filename:file.name,size:file.size,docKind:form.elements.docKind.value});
-      status.textContent = 'Uploading PDF…';
-      const uploaded = await fetch(ticket.url, {method:'PUT',headers:ticket.headers,body:file,credentials:'omit'});
-      if (!uploaded.ok) throw new Error('R2 upload failed. Check bucket CORS configuration and retry.');
-      status.textContent = 'Validating PDF…';
-      const result = await post('upload-complete', {uploadId:ticket.uploadId});
-      window.location.assign(`/documents/${result.docId}${form.elements.docKind.value === 'drawing' ? '?tab=crops' : ''}`);
-    } catch (error) { status.textContent = error.message; }
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const label = files.length > 1 ? ` (${i + 1}/${files.length})` : '';
+        status.textContent = `Preparing secure upload${label}…`;
+        const ticket = await post('upload-url', {filename:file.name,size:file.size,docKind});
+        status.textContent = `Uploading ${file.name}${label}…`;
+        const uploaded = await fetch(ticket.url, {method:'PUT',headers:ticket.headers,body:file,credentials:'omit'});
+        if (!uploaded.ok) throw new Error('R2 upload failed. Check bucket CORS configuration and retry.');
+        status.textContent = `Validating ${file.name}${label}…`;
+        await post('upload-complete', {uploadId:ticket.uploadId});
+      }
+      status.textContent = files.length > 1 ? `Uploaded ${files.length} PDFs.` : 'Upload complete.';
+      window.location.assign(returnTo);
+    } catch (error) { status.textContent = error.message; status.classList.add('error'); }
     finally { button.disabled = false; }
   });
 }
